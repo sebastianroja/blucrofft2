@@ -15,7 +15,7 @@ export class LoginPage implements OnInit {
   constructor(
     private dbService: DbService,
     private router: Router,
-    private alertController: AlertController  // Agregar el AlertController al constructor
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {}
@@ -24,14 +24,16 @@ export class LoginPage implements OnInit {
     if (this.correo && this.password) {
       this.dbService
         .verifyCredentials(this.correo, this.password)
-        .then((result) => {
-          if (result) {
-            // Usuario encontrado, mostrar alerta
+        .then((user) => {
+          if (user) {
+            // Usuario encontrado
             this.showAlert('Usuario encontrado');
+            // Establecer el ID del usuario actual
+            this.dbService.setCurrentUserId(user.id);
             // Navegar a la página principal u otra página deseada
             this.router.navigate(['/home']);
           } else {
-            // Usuario no encontrado, mostrar alerta de error
+            // Usuario no encontrado
             this.showAlert('Usuario no encontrado');
           }
         })

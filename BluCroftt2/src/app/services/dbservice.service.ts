@@ -11,6 +11,7 @@ export class DbService {
   tablaCuenta: string = "CREATE TABLE IF NOT EXISTS cuenta(id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, correo TEXT, password TEXT);";
   listaCuentas = new BehaviorSubject([]);
   private isDBReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private currentUserId: number = 0;
 
   constructor(
     private sqlite: SQLite,
@@ -77,15 +78,63 @@ export class DbService {
       });
   }
 
-  verifyCredentials(correo: string, password: string): Promise<boolean> {
+  verifyCredentials(correo: string, password: string): Promise<any> {
     return this.database
       .executeSql('SELECT * FROM cuenta WHERE correo = ? AND password = ?', [correo, password])
       .then(result => {
-        return result.rows.length > 0;
+        if (result.rows.length > 0) {
+          return result.rows.item(0);  // Devolver los datos del primer usuario encontrado
+        } else {
+          return null;  // Devolver null si no se encuentra ningún usuario
+        }
       })
       .catch(error => {
         this.presentToast('Error al verificar las credenciales: ' + error);
         throw error;
       });
   }
+
+  getUserData(correo: string): Promise<any> {
+    return this.database.executeSql('SELECT nombre, correo FROM cuenta WHERE correo = ?', [correo])
+      .then((res) => {
+        if (res.rows.length > 0) {
+          return {
+            nombre: res.rows.item(0).nombre,
+            correo: res.rows.item(0).correo
+          };
+        } else {
+          return null;
+        }
+      })
+      .catch((error) => {
+        console.error('Error al obtener datos del usuario:', error);
+        throw error;
+      });
+  }
+
+  setCurrentUserId(id: number) {
+    this.currentUserId = id;
+  }
+
+  getCurrentUser(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.database.executeSql('SELECT nombre, correo FROM cuenta WHERE id = ?', [this.currentUserId])
+        .then(res => {
+          if (res.rows.length > 0) {
+            const usuario = {
+              nombre: res.rows.item(0).nombre,
+              correo: res.rows.item(0).correo
+            };
+            resolve(usuario);
+          } else {
+            resolve(null);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
 }
+
+   

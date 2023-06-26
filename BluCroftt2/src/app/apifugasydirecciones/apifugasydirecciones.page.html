@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>apifugasydirecciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">apifugasydirecciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item *ngFor="let r of regiones">
+      <ion-label>{{ r.name }}</ion-label>
+      <ion-note slot="end">{{ r.roman_numeral }}</ion-note>
+      <ion-item *ngIf="selectedRegion">
+        <ion-label>Address: {{ selectedRegion.address }}</ion-label>
+      </ion-item>
+      <ion-note slot="end">{{ getDireccionPorRegion(r.id) }}</ion-note>
+    </ion-item>
+  </ion-list>
+  
+
+  
+</ion-content>

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Añadir ubicacion de fuga
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>Direccion de la fuga</ion-label>
+      <ion-input [(ngModel)]="address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Region</ion-label>
+      <ion-select [(ngModel)]="selectedRegionId">
+        <ion-select-option *ngFor="let region of regions" [value]="region.id">{{ region.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" (click)="saveLocation()">Save</ion-button>
+</ion-content>
