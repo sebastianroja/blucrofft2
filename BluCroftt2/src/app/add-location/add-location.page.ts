@@ -28,10 +28,14 @@ export class AddLocationPage {
     const location = {
       address: this.address,
       regionId: this.selectedRegionId
-     
     };
-    
 
-    this.router.navigate(['/apifugasydirecciones']);
+    this.apiService.saveLocation(location);
+
+    // Almacenar la dirección en el almacenamiento local
+    localStorage.setItem('address', this.address);
+
+    this.router.navigate(['/apifugasydirecciones'], { queryParams: { address: this.address, regionId: this.selectedRegionId } });
   }
+  
 }

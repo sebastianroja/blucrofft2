@@ -9,7 +9,7 @@ import { ApiService } from '../services/apiservice.service';
 export class ApifugasydireccionesPage implements OnInit {
 
   regiones: any;
-  fugas: any[] = [];
+  fugas: any;
   selectedRegion: any;
   storedAddress: string = '';
   filteredDirecciones: string[] = [];
@@ -19,7 +19,7 @@ export class ApifugasydireccionesPage implements OnInit {
 
   ngOnInit() {
     this.getRegiones();
-    this.getLocations();
+    this.getFugas();
     this.retrieveStoredAddress();
   }
 
@@ -30,29 +30,43 @@ export class ApifugasydireccionesPage implements OnInit {
   }
   
 
-  getLocations() {
-    this.fugas = this.api.getLocations();
-    
+  getFugas() {
+    this.api.getFugas().subscribe((data) => {
+      this.fugas = data;
+    });
   }
 
   ionViewWillEnter() {
     this.getRegiones();
-    this.getLocations();
+    this.getFugas();
     this.retrieveStoredAddress();
+    
   }
 
   retrieveStoredAddress() {
     this.storedAddress = localStorage.getItem('address') || '';
   }
+  getLocations(): any[] {
+    const storedLocations = localStorage.getItem('locations');
+    return storedLocations ? JSON.parse(storedLocations) : [];
+  }
 
+  
+  filterDireccionesByRegion() {
+    const locations = this.api.getLocations();
+    this.filteredDirecciones = locations
+      .filter((loc: any) => loc.regionId === this.selectedRegionId)
+      .map((loc: any) => loc.address);
+  }
   getDireccionPorRegion(regionId: number): string {
-    const location = this.fugas.find((fuga: any) => fuga.regionId === regionId);
+    const locations = this.api.getLocations();
+    const location = locations.find((loc: any) => loc.regionId === regionId);
     return location ? location.address : '';
   }
   
-  filterDireccionesByRegion() {
-    this.filteredDirecciones = this.fugas
-      .filter((fuga: any) => fuga.regionId === this.selectedRegionId)
-      .map((fuga: any) => fuga.address);
-  }
 }
+
+
+
+
+
