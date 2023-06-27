@@ -4,6 +4,7 @@ import { AnimationController, Animation } from '@ionic/angular';
 import { DbService } from '../services/dbservice.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',

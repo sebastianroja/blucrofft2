@@ -22,10 +22,18 @@
         <ion-icon name="location-sharp"></ion-icon>
         <ion-label>Añadir Fuga</ion-label>
       </ion-item>
-      <ion-item (click)="navigateTo('/lista-fugas')">
+      <ion-item (click)="navigateTo('/apifugasydirecciones')">
         <ion-icon name="list"></ion-icon>
         <ion-label>Lista de Fugas</ion-label>
       </ion-item>
+      <ion-item (click)="navigateTo('/premium-subscription')">
+        <ion-icon name="star"></ion-icon>
+        <ion-label>Suscripción Premium</ion-label>
+      </ion-item>
+      <ion-button routerLink="/contact-us" class="pulse-animation">
+        <ion-icon name="chatbubbles"></ion-icon>
+        <ion-label>Contacto y Colaboración</ion-label>
+      </ion-button>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -50,6 +58,6 @@
       <p>Con nuestra aplicación, puedes reportar fácilmente las fugas de agua que encuentres en tu área. Además, brindamos información actualizada sobre el estado de las fugas reportadas y ofrecemos alertas a conductores para evitar posibles daños a sus vehículos.</p>
     </ion-card-content>
   </ion-card>
-
+  
   <div class="square" #square></div>
 </ion-content>

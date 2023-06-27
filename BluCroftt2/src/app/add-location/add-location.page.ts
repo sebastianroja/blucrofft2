@@ -28,9 +28,10 @@ export class AddLocationPage {
     const location = {
       address: this.address,
       regionId: this.selectedRegionId
+     
     };
     
 
-    this.router.navigate(['/lista-fugas']);
+    this.router.navigate(['/apifugasydirecciones']);
   }
 }

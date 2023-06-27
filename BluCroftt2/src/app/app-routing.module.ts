@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+
 const routes: Routes = [
   {
     path: 'home',
@@ -27,6 +28,14 @@ const routes: Routes = [
   {
     path: 'apifugasydirecciones',
     loadChildren: () => import('./apifugasydirecciones/apifugasydirecciones.module').then( m => m.ApifugasydireccionesPageModule)
+  },
+  {
+    path: 'contact-us',
+    loadChildren: () => import('./contact-us/contact-us.module').then( m => m.ContactUsPageModule)
+  },
+  {
+    path: 'premium-subscription',
+    loadChildren: () => import('./premium-subscription/premium-subscription.module').then( m => m.PremiumSubscriptionPageModule)
   },
 ];
 

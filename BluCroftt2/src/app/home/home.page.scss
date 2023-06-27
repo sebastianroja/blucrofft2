@@ -25,3 +25,76 @@
 #container a {
   text-decoration: none;
 }
+
+.container {
+  background-color: #00bcd4; /* Celeste */
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  color: #fff; /* Texto en blanco */
+}
+
+p {
+  font-size: 16px;
+  color: #fff; /* Texto en blanco */
+}
+
+ion-button {
+  margin-top: 20px;
+  --background: #ab8e00; /* Turquesa */
+  --color: #fff; /* Texto en blanco */
+}
+
+ion-content {
+  --background-color: #E0F2F1; /* Color de fondo personalizado */
+}
+
+ion-card.custom-card {
+  --background-color: #B2DFDB; /* Color de fondo personalizado para las tarjetas */
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+
+  &.text-animation {
+    animation: myAnimation 3s infinite;
+  }
+}
+
+@keyframes myAnimation {
+  0% {
+    background-color: red;
+  }
+  50% {
+    background-color: yellow;
+  }
+  100% {
+    background-color: green;
+  }
+}
+
+.square {
+  width: 360px;
+  height: 100px;
+  background-color: red;
+}
+
+.pulse-animation {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
